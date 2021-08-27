@@ -1,0 +1,1 @@
+# anti_installation_calculator
