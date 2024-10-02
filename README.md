@@ -1,1 +1,1 @@
-# anti_installation_calculator
+# anti-installation-calculator
