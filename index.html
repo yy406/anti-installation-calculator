@@ -1,19 +1,118 @@
-<!DOCTYPE html> <!--文書型の定義-->
-<html> <!--はじまり-->
-    <head> <!--文書のヘッダ部分-->
-        <meta charset='utf-8'> <!--文字コードの指定-->
-        <link rel='shortcut icon' href='favicon.ico'> <!--タブに表示されるアイコンの設定-->
-        <meta name='description' content='仮'> <!--検索エンジンに使われたり、検索結果に表示される説明文-->
-        <title>対地補正計算機</title> <!--ページのタイトル-->
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <link rel="icon" href="91_favicon.ico">
+        <meta name="description" content="艦これの対地補正計算機。対地装備の組み合わせ別の補正値一覧を計算することができます。">
+        <title>対地補正計算機</title>
+        <!-- <link rel="stylesheet" href="style.css"> -->
     </head>
-    <body> <!--文書の本体部分-->
+    <body>
         <h1>対地補正計算機</h1>
-        <h2>対地補正計算機</h2>
-        <h3>対地補正計算機</h3>
-        <h4>対地補正計算機</h4>
-        <p>対地補正計算機</p>
-        <p>対地スロット数 / 対地装備数 / 艦種 / 敵艦</p>
-        <p>装備名 / 改修 / min / max</p>
-        <p>火力 / 比較条件（昼戦単発等、小破以下等）</p>
+        <!-- タブ切り替えボタン -->
+        <button class="tablinks" onclick="openTab(event, 'tabMainInputs')">計算条件</button>
+        <button class="tablinks" onclick="openTab(event, 'tabMainOutputs')">計算結果</button>
+        <button class="tablinks" onclick="openTab(event, 'tabInsEquipInputs')">装備コード読込</button>
+        <button class="tablinks" onclick="openTab(event, 'tabInfo')">このツールについて</button>
+
+        <!-- タブごとの表示エリア -->
+        <!-- 計算条件タブ -->
+        <div id="tabMainInputs" class="tabcontent">
+            <h2>計算条件</h2>
+            <button id="buttonRunCalc">計算実行</button>
+            <h3>装備条件</h3>
+            <div>
+                <label for="inputSlotNum">対地スロット数：</label>
+                <input
+                    type="number"
+                    id="inputSlotNum"
+                    value="3"
+                    min="1"
+                    step="1"
+                    oninput="validity.valid||(value='');"
+                >
+            </div>
+            <div id="tableMainInputs"></div>
+            <h3>攻撃力条件</h3>
+            <div>
+                <label for="inputEnemyType">敵艦タイプ：</label>
+                <select id="inputEnemyType">
+                    <option value="ソフトスキン型">ソフトスキン型</option>
+                    <option value="集積地型">集積地型</option>
+                    <option value="砲台型">砲台型</option>
+                    <option value="離島型">離島型</option>
+                    <option value="港湾夏姫型">港湾夏姫型</option>
+                    <option value="新集積地型">新集積地型</option>
+                    <option value="泊地vac型">泊地vac型</option>
+                    <option value="船渠型">船渠型</option>
+                </select>
+            </div>
+            <!-- 攻撃力算出用のいろいろが揃ったら機能開放　それまではFbase=1で換算補正算出しソート -->
+            <!-- <div>
+                <label for="inputBaseFirePower">基本攻撃力：</label>
+                <input
+                    type="number"
+                    id="inputBaseFirePower"
+                    value="60"
+                    min="0.0000001"
+                    step="any"
+                    oninput="(validity.valid && value > 0)||(value='');"
+                >
+            </div> -->
+            <div>
+                <label for="inputIsDay">昼戦or夜戦：</label>
+                <select id="inputIsDay">
+                    <option value="true">昼戦</option>
+                    <option value="false">夜戦</option>
+                </select>
+            </div>
+            <h3>攻撃力詳細条件</h3>
+        </div>
+
+        <!-- 計算結果タブ -->
+        <div id="tabMainOutputs" class="tabcontent">
+            <h2>計算結果</h2>
+            <div id="tableMainOutputs"></div>
+        </div>
+
+        <!-- 対地装備タブ -->
+        <div id="tabInsEquipInputs" class="tabcontent">
+            <h2>装備コード読込</h2>
+            <h3>装備コード入力：</h3>
+            <button id="loadEquipCode">装備コード読込</button><br>
+            <!-- <label for="equipCodeInput"><b>装備コード入力：</b></label><br> -->
+            <textarea id="equipCodeInput" rows="6" cols="60"
+  placeholder="ここに装備コードを貼り付けてください&#10;[{&quot;id&quot;:47,&quot;lv&quot;:0},{&quot;id&quot;:47,&quot;lv&quot;:0},..."></textarea><br>
+            <h3>保有対地装備一覧：</h3>
+            <button id="applyInsEquipList">計算条件へ反映</button><br>
+            <button id="checkAllEquip">全てチェック</button><br>
+            <div id="tableInsCodeImport"></div>
+        </div>
+
+        <!-- このツールについて -->
+        <div id="tabInfo" class="tabcontent">
+            <h2>このツールについて</h2>
+            <p>
+                対地装備の組み合わせを列挙し、補正値を計算するツールです。<br>
+                大体はChatGPTが作りました（ ´◔ ω◔`）<br>
+                開発者はプログラミングど素人であり、cssにより体裁が整えられるのは期待しないでください。
+            </p>
+            <h2>使い方</h2>
+            <p>そのうち書きます（ ´◔ ω◔`）</p>
+            <h2>問い合わせ先</h2>
+            <p>
+                ご質問・ご要望などありましたら、以下からご連絡ください。<br>
+                ・Discord：<a href="https://discord.com/channels/@me/451627324350267402" target="_blank" rel="noopener noreferrer">myon_yy406</a><br>
+                ・Twitter：<a href="https://twitter.com/yy406_myon" target="_blank" rel="noopener noreferrer">yy406/みょん</a>
+            </p>
+            <h2>更新履歴</h2>
+            <a href="https://github.com/yy406/anti-installation-calculator" target="_blank" rel="noopener noreferrer">https://github.com/yy406/anti-installation-calculator</a>
+        </div>
+
+        <script src="20_main.js"></script>
+        <script src="21_mainInputs.js"></script>
+        <script src="22_modCalc.js"></script>
+        <script src="23_insEquipInputs.js"></script>
     </body>
 </html>
