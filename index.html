@@ -4,12 +4,12 @@
     <head>
         <meta charset="utf-8">
         <link rel="icon" href="91_favicon.ico">
-        <meta name="description" content="艦これの対地補正計算機。対地装備の組み合わせ別の補正値一覧を計算することができます。">
-        <title>対地補正計算機</title>
+        <meta name="description" content="【開発版】艦これの対地補正計算機。対地装備の組み合わせ別の補正値一覧を計算することができます。">
+        <title>【開発版】対地補正計算機</title>
         <!-- <link rel="stylesheet" href="style.css"> -->
     </head>
     <body>
-        <h1>対地補正計算機</h1>
+        <h1>【開発版】対地補正計算機</h1>
         <!-- タブ切り替えボタン -->
         <button class="tablinks" onclick="openTab(event, 'tabMainInputs')">計算条件</button>
         <button class="tablinks" onclick="openTab(event, 'tabMainOutputs')">計算結果</button>
@@ -20,6 +20,7 @@
         <!-- 計算条件タブ -->
         <div id="tabMainInputs" class="tabcontent">
             <h2>計算条件</h2>
+            <p>一部補正については未対応です　スクリーニング程度にご活用ください(╹‿ ╹.　)</p>
             <button id="buttonRunCalc">計算実行</button>
             <h3>装備条件</h3>
             <div>
@@ -48,8 +49,7 @@
                     <option value="船渠型">船渠型</option>
                 </select>
             </div>
-            <!-- 攻撃力算出用のいろいろが揃ったら機能開放　それまではFbase=1で換算補正算出しソート -->
-            <!-- <div>
+            <div>
                 <label for="inputBaseFirePower">基本攻撃力：</label>
                 <input
                     type="number"
@@ -59,7 +59,7 @@
                     step="any"
                     oninput="(validity.valid && value > 0)||(value='');"
                 >
-            </div> -->
+            </div>
             <div>
                 <label for="inputIsDay">昼戦or夜戦：</label>
                 <select id="inputIsDay">
@@ -81,7 +81,6 @@
             <h2>装備コード読込</h2>
             <h3>装備コード入力：</h3>
             <button id="loadEquipCode">装備コード読込</button><br>
-            <!-- <label for="equipCodeInput"><b>装備コード入力：</b></label><br> -->
             <textarea id="equipCodeInput" rows="6" cols="60"
   placeholder="ここに装備コードを貼り付けてください&#10;[{&quot;id&quot;:47,&quot;lv&quot;:0},{&quot;id&quot;:47,&quot;lv&quot;:0},..."></textarea><br>
             <h3>保有対地装備一覧：</h3>
@@ -100,6 +99,17 @@
             </p>
             <h2>使い方</h2>
             <p>そのうち書きます（ ´◔ ω◔`）</p>
+            <h2>補正値・ソースまとめ</h2>
+            <a href="https://docs.google.com/spreadsheets/d/1d21rXAjMRjXZ4mwUYypXKb3KKDhGmhj_UJQyYBbbsaI/edit?usp=sharing" target="_blank" rel="noopener noreferrer">対地関連資料室</a>
+            <h2>注意点</h2>
+            <p>主な未対応項目</p>
+            <ul>
+                <li>対地装備の素火力</li>
+                <li>対地装備の青ボーナス</li>
+                <li>気球補正</li>
+                <li>キャップ処理</li>
+                <li>その他対地補正以外の要素</li>
+            </ul>
             <h2>問い合わせ先</h2>
             <p>
                 ご質問・ご要望などありましたら、以下からご連絡ください。<br>
